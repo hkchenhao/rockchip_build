@@ -6,6 +6,8 @@ cd ../../kernel
 make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- rockchip_linux_defconfig
 # make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- menuconfig
 # make ARCH=arm64 savedefconfig && mv defconfig arch/arm64/configs/rk3399_linux_defconfig
-make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- rk3399-sapphire-excavator-linux.img -j32
+make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- rk3399-eaidk-610.img -j32
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=../build/image
 mv boot.img ../build/image/kernel.img
 cd -
