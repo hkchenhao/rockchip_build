@@ -1,11 +1,17 @@
-# [Docker Command](https://www.runoob.com/docker/docker-image-usage.html)
-- 构建镜像 `docker build -f build_docker.dockerfile -t image_ubuntu:23.04 .`
-- 查看镜像 `docker images -a`
-- 删除镜像 `docker rmi image_ubuntu:23.04`
-    
+# Build Rockchip
 
-- 查看容器 `docker ps -a`
-- 启动容器 `docker run --name container_ubuntu_23.04 -itd --privileged -v /home/chenhao.0405/Embedded/opensdk_rk3399:/home/ubuntu/opensdk_rk3399 docker.io/library/image_ubuntu:23.04 /bin/bash`
-- 启停容器 `docker start/stop <container_id>`
-- 进入容器 `docker exec -it <container_id> /bin/bash`
-- 删除容器 `docker rm -f <container_id>`
+## Clone
+```shell
+git clone https://github.com/rockchip-linux/rkbin loader -b master --single-branch --depth 1
+git clone https://github.com/rockchip-linux/u-boot uboot -b next-dev --single-branch --depth 1
+git clone https://github.com/rockchip-linux/kernel.git kernel -b develop-6.1 --single-branch --depth 1
+```
+## Download
+```shell
+# UBoot 进入 Reload/Maskrom 模式命令: download(reboot loader) / rbrom
+./upgrade_tool ul ../image/loader.bin -noreset
+./upgrade_tool di -p ../image/parameter.txt
+./upgrade_tool di -u ../image/uboot.img && ./upgrade_tool rd
+./upgrade_tool di -b ../image/kernel.img && ./upgrade_tool rd
+./upgrade_tool di -rootfs ../image/ubuntu-rootfs.img && ./upgrade_tool rd
+```
